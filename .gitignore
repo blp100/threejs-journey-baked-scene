@@ -1,0 +1,5 @@
+# package
+node_modules/
+
+# Folder view configuration files
+.DS_Store
