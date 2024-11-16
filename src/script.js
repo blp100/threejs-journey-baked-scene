@@ -59,17 +59,16 @@ gltfLoader.load("./portal.glb", (gltf) => {
     child.material = bakedMaterial;
   });
   const poleLightAMesh = gltf.scene.children.find(
-    (child) => child.name === "pointLightA"
+    (child) => child.name === "poleLightA"
   );
 
   const poleLightBMesh = gltf.scene.children.find(
-    (child) => child.name === "pointLightB"
+    (child) => child.name === "poleLightB"
   );
 
   const portalLightMesh = gltf.scene.children.find(
-    (child) => child.name === "portal"
+    (child) => child.name === "portalLight"
   );
-
   portalLightMesh.material = portalLightMaterial;
   poleLightAMesh.material = poleLightMaterial;
   poleLightBMesh.material = poleLightMaterial;
