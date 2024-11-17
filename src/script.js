@@ -155,6 +155,7 @@ const portalLightMaterial = new THREE.ShaderMaterial({
   },
   vertexShader: portalVertexShader,
   fragmentShader: portalFragmentShader,
+  side: THREE.DoubleSide,
 });
 
 /**
