@@ -4,4 +4,6 @@ void main() {
 
   // gl_FragColor = vec4(gl_PointCoord, 1.0, 1.0);
   gl_FragColor = vec4(0.89, 0.88, 0.45, strength);
+
+  #include <colorspace_fragment>
 }
