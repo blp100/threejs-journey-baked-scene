@@ -47,6 +47,16 @@ const loadingManager = new THREE.LoadingManager(
       loadingBarElement.classList.add("ended");
       loadingBarElement.style.transform = "";
     }, 500);
+
+    window.setTimeout(() => {
+      overlayMaterial.depthWrite = false;
+    }, 1000);
+
+    window.setTimeout(() => {
+      scene.remove(overlay);
+      overlay.geometry.dispose();
+      overlay.material.dispose();
+    }, 3000);
   },
 
   // Progress
@@ -220,6 +230,7 @@ firefliesGui
 // Points
 const fireflies = new THREE.Points(firefliesGeometry, firefliesMaterial);
 scene.add(fireflies);
+console.log(fireflies);
 
 /**
  * Environment Map
