@@ -57,12 +57,13 @@ const poleLightMaterial = new THREE.MeshBasicMaterial({ color: "#F3FF90" });
 debugObject.portalColorStart = "#9c4f9d";
 debugObject.portalColorEnd = "#f8cdf6";
 
-gui.addColor(debugObject, "portalColorStart").onChange(() => {
+const portalGui = gui.addFolder("portal");
+portalGui.addColor(debugObject, "portalColorStart").onChange(() => {
   portalLightMaterial.uniforms.uColorStart.value.set(
     debugObject.portalColorStart
   );
 });
-gui.addColor(debugObject, "portalColorEnd").onChange(() => {
+portalGui.addColor(debugObject, "portalColorEnd").onChange(() => {
   portalLightMaterial.uniforms.uColorEnd.value.set(debugObject.portalColorEnd);
 });
 
@@ -143,7 +144,10 @@ const firefliesMaterial = new THREE.ShaderMaterial({
   depthWrite: false,
 });
 
-gui.add(firefliesMaterial.uniforms.uSize, "value", 0, 500, 1).name("uSize");
+const firefliesGui = gui.addFolder("fireflies");
+firefliesGui
+  .add(firefliesMaterial.uniforms.uSize, "value", 0, 500, 1)
+  .name("uSize");
 
 // Points
 const fireflies = new THREE.Points(firefliesGeometry, firefliesMaterial);
@@ -208,7 +212,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 debugObject.clearColor = "#5b4157";
 renderer.setClearColor(debugObject.clearColor);
-gui.addColor(debugObject, "clearColor").onChange(() => {
+const othersGui = gui.addFolder("others")
+othersGui.addColor(debugObject, "clearColor").onChange(() => {
   renderer.setClearColor(debugObject.clearColor);
 });
 
