@@ -51,7 +51,16 @@ bakedTexture.colorSpace = THREE.SRGBColorSpace;
 const bakedMaterial = new THREE.MeshBasicMaterial({ map: bakedTexture });
 
 // Pole light Material
-const poleLightMaterial = new THREE.MeshBasicMaterial({ color: "#F3FF90" });
+debugObject.poleLightColor = "#e1ffc3";
+
+const poleLightMaterial = new THREE.MeshBasicMaterial({
+  color: debugObject.poleLightColor,
+});
+
+const poleLightGui = gui.addFolder("poleLight");
+poleLightGui.addColor(debugObject, "poleLightColor").onChange(() => {
+  poleLightMaterial.color.set(debugObject.poleLightColor);
+});
 
 // Portal light Material
 debugObject.portalColorStart = "#9c4f9d";
@@ -210,9 +219,9 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-debugObject.clearColor = "#5b4157";
+debugObject.clearColor = "#1d1c55";
 renderer.setClearColor(debugObject.clearColor);
-const othersGui = gui.addFolder("others")
+const othersGui = gui.addFolder("others");
 othersGui.addColor(debugObject, "clearColor").onChange(() => {
   renderer.setClearColor(debugObject.clearColor);
 });
