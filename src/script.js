@@ -16,6 +16,9 @@ const debugObject = {};
 const gui = new GUI({
   width: 400,
 });
+if (window.location.hash !== "#debug") {
+  gui.hide();
+}
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
