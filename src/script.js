@@ -5,6 +5,8 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import firefliesVertexShader from "./shaders/fireflies/vertex.glsl";
 import firefliesFragmentShader from "./shaders/fireflies/fragment.glsl";
+import portalVertexShader from "./shaders/portal/vertex.glsl";
+import portalFragmentShader from "./shaders/portal/fragment.glsl";
 
 /**
  * Base
@@ -52,7 +54,29 @@ const bakedMaterial = new THREE.MeshBasicMaterial({ map: bakedTexture });
 const poleLightMaterial = new THREE.MeshBasicMaterial({ color: "#F3FF90" });
 
 // Portal light Material
-const portalLightMaterial = new THREE.MeshBasicMaterial({ color: "#E5D9F2" });
+debugObject.portalColorStart = "#9c4f9d";
+debugObject.portalColorEnd = "#f8cdf6";
+
+gui.addColor(debugObject, "portalColorStart").onChange(() => {
+  portalLightMaterial.uniforms.uColorStart.value.set(
+    debugObject.portalColorStart
+  );
+});
+gui.addColor(debugObject, "portalColorEnd").onChange(() => {
+  portalLightMaterial.uniforms.uColorEnd.value.set(debugObject.portalColorEnd);
+});
+
+const portalLightMaterial = new THREE.ShaderMaterial({
+  uniforms: {
+    uTime: new THREE.Uniform(0),
+    uColorStart: new THREE.Uniform(
+      new THREE.Color(debugObject.portalColorStart)
+    ),
+    uColorEnd: new THREE.Uniform(new THREE.Color(debugObject.portalColorEnd)),
+  },
+  vertexShader: portalVertexShader,
+  fragmentShader: portalFragmentShader,
+});
 
 /**
  * Model
@@ -196,8 +220,9 @@ const clock = new THREE.Clock();
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
 
-  // Update fireflies
-  fireflies.material.uniforms.uTime.value = elapsedTime;
+  // Update materials
+  portalLightMaterial.uniforms.uTime.value = elapsedTime;
+  firefliesMaterial.uniforms.uTime.value = elapsedTime;
 
   // Update controls
   controls.update();
