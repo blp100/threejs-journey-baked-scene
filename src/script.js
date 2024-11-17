@@ -167,6 +167,18 @@ const fireflies = new THREE.Points(firefliesGeometry, firefliesMaterial);
 scene.add(fireflies);
 
 /**
+ * Environment Map
+ */
+
+const environmentMap = textureLoader.load("./space/hdr_blue_nebulae-1.webp");
+environmentMap.mapping = THREE.EquirectangularReflectionMapping;
+environmentMap.colorSpace = THREE.SRGBColorSpace;
+environmentMap.minFilter = THREE.LinearFilter;
+environmentMap.magFilter = THREE.LinearFilter;
+
+scene.background = environmentMap;
+
+/**
  * Sizes
  */
 const sizes = {
@@ -225,12 +237,12 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-debugObject.clearColor = "#1d1c55";
-renderer.setClearColor(debugObject.clearColor);
-const othersGui = gui.addFolder("others");
-othersGui.addColor(debugObject, "clearColor").onChange(() => {
-  renderer.setClearColor(debugObject.clearColor);
-});
+// debugObject.clearColor = "#1d1c55";
+// renderer.setClearColor(debugObject.clearColor);
+// const othersGui = gui.addFolder("others");
+// othersGui.addColor(debugObject, "clearColor").onChange(() => {
+//   renderer.setClearColor(debugObject.clearColor);
+// });
 
 /**
  * Animate
