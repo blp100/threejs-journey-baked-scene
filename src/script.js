@@ -4,6 +4,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import gsap from "gsap";
+import overlayVertexShader from "./shaders/overlay/vertex.glsl";
+import overlayFragmentShader from "./shaders/overlay/fragment.glsl";
 import firefliesVertexShader from "./shaders/fireflies/vertex.glsl";
 import firefliesFragmentShader from "./shaders/fireflies/fragment.glsl";
 import portalVertexShader from "./shaders/portal/vertex.glsl";
@@ -88,20 +90,8 @@ const overlayMaterial = new THREE.ShaderMaterial({
   uniforms: {
     uAlpha: { value: 1 },
   },
-  vertexShader: `
-        void main()
-        {
-            gl_Position = vec4(position, 1.0);
-        }
-    `,
-  fragmentShader: `
-        uniform float uAlpha;
-
-        void main()
-        {
-            gl_FragColor = vec4(0.0, 0.0, 0.0, uAlpha);
-        }
-    `,
+  vertexShader: overlayVertexShader,
+  fragmentShader: overlayFragmentShader,
 });
 const overlay = new THREE.Mesh(overlayGeometry, overlayMaterial);
 scene.add(overlay);
